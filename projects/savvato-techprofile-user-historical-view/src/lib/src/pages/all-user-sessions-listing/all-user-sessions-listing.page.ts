@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { UserService } from '../../../../_services/user.service';
+import { ValueService } from '../../../../_services/value.service';
 import { QuestionService } from '../../../../_services/question.service';
 import { LineItemAPIService } from '../../../../_services/line-item-api.service';
 
@@ -30,6 +31,7 @@ export class AllUserSessionsListingPage implements OnInit {
 			    private _userService: UserService,
 			    private _questionService: QuestionService,
 			    private _lineItemAPIService: LineItemAPIService,
+			    private _valueService: ValueService,
 			    private _modelService: ModelService) {
 
 	}
@@ -87,7 +89,7 @@ export class AllUserSessionsListingPage implements OnInit {
 	}
 
 	onAnswerClick(q) {
-		this._router.navigate(["skills-matrix/question/" + q.id + "/user/" + this.userId]);
+		this._router.navigate([this._valueService.getValue() + "/question/" + q.id + "/user/" + this.userId]);
 	}
 
 	getLineItemName() {

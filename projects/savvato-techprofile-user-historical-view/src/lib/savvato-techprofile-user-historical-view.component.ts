@@ -12,6 +12,7 @@ import { LineItemAPIService } from '../_services/line-item-api.service';
 import { TechProfileAPIService } from '../_services/tech-profile-api.service';
 import { UserTechProfileModelService } from '../_services/user-tech-profile-model.service';
 import { UserService } from '../_services/user.service';
+import { ValueService } from '../_services/value.service'
 
 import { TechProfileModelService } from '../_services/tech-profile-model.service';
 
@@ -26,6 +27,8 @@ import { TechProfileModelService } from '../_services/tech-profile-model.service
 export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
 
     @Input() ctrl: any;
+
+    route_prefix = undefined;
 
     userId = undefined;
     user = undefined;
@@ -48,7 +51,8 @@ export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
               private _userTechProfileModelService: UserTechProfileModelService,
               private _lineItemApiService: LineItemAPIService,
               private _userService: UserService,
-              private _alertService: AlertService ) {
+              private _alertService: AlertService,
+              private _valueService: ValueService ) {
 
   }
 
@@ -85,7 +89,7 @@ export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
               return undefined;
             },
             onLxDescriptionClick: (lineItem, idx) => {
-              self._router.navigate(['skills-matrix/all-user-sessions-listing/user/' + self.userId + '/intersection/' + lineItem['id'] + '/' + idx]);
+              self._router.navigate([self.route_prefix + '/all-user-sessions-listing/user/' + self.userId + '/intersection/' + lineItem['id'] + '/' + idx]);
             }
           })
         })
@@ -96,7 +100,6 @@ export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
         self.environment = ctrl.getEnv();
         self.user = ctrl.getUser();
         self.userId = self.user['id'];
-        console.log("userId ==> " + self.userId);
 
         self._modelService._init(ctrl.getEnv());
         self._userService._init(ctrl.getEnv());
@@ -111,6 +114,9 @@ export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
         })
 
         self.lxdescriptionClickHandler = ctrl.onLxDescriptionClick;
+
+        self.route_prefix = ctrl.getRoutePrefix && ctrl.getRoutePrefix();
+        self._valueService.setValue(self.route_prefix);
       })
   }
 
