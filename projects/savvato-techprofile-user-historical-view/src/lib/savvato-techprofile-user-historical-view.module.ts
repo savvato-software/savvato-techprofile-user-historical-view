@@ -5,7 +5,12 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
+import { SavvatoTechprofileUserHistoricalViewRoutingModule } from './savvato-techprofile-user-historical-view-routing.module';
+
 import { SavvatoTechprofileUserHistoricalViewComponent } from './savvato-techprofile-user-historical-view.component';
+
+import { AllUserSessionsListingPageModule } from './src/pages/all-user-sessions-listing/all-user-sessions-listing.module'
+import { QuestionSessionGradePageModule } from './src/pages/question-session-grade/question-session-grade.module'
 
 import { DtimTechprofileModule } from 'dtim-techprofile';
 
@@ -19,8 +24,12 @@ import { DtimTechprofileModule } from 'dtim-techprofile';
   	HttpClientModule,
   	FormsModule,
 
-  	DtimTechprofileModule
+  	SavvatoTechprofileUserHistoricalViewRoutingModule,
 
+  	DtimTechprofileModule,
+
+  	AllUserSessionsListingPageModule,
+  	QuestionSessionGradePageModule
   ],
   exports: [SavvatoTechprofileUserHistoricalViewComponent]
 })
