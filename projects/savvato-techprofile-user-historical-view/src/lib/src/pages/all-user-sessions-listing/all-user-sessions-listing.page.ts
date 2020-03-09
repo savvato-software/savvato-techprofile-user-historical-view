@@ -87,11 +87,7 @@ export class AllUserSessionsListingPage implements OnInit {
 	}
 
 	onAnswerClick(q) {
-		this._router.navigate(['/user-tech-profile/' + this.userId + '/past/question-session-grade/' + q.id]);
-	}
-
-	onNonCorrectAnswerClick(q) {
-		this._router.navigate(['/question-display/' + q.id]);
+		this._router.navigate(["skills-matrix/question/" + q.id + "/user/" + this.userId]);
 	}
 
 	getLineItemName() {

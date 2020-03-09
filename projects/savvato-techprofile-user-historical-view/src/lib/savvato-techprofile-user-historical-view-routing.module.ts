@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SavvatoTechprofileUserHistoricalViewComponent } from './savvato-techprofile-user-historical-view.component';
-import { AllUserSessionsListingPageModule } from './src/pages/all-user-sessions-listing/all-user-sessions-listing.module'
+import { AllUserSessionsListingPageModule } from './src/pages/all-user-sessions-listing/all-user-sessions-listing.module';
+import { QuestionSessionGradePageModule } from './src/pages/question-session-grade/question-session-grade.module';
 
-export function getAppModule() {
+export function getAllUserSessionsListingPageModule() {
   return AllUserSessionsListingPageModule;
+}
+
+export function getQuestionSessionGradePageModule() {
+  return QuestionSessionGradePageModule;
 }
 
 const routes: Routes = [
@@ -15,11 +20,11 @@ const routes: Routes = [
   },
   {
     path: 'all-user-sessions-listing/user/:userId/intersection/:lineItemId/:idx',
-    loadChildren: getAppModule
+    loadChildren: getAllUserSessionsListingPageModule
   },
   {
-    path: 'question-session-grade/:questionId',
-    loadChildren: './src/pages/question-session-grade/question-session-grade.module#QuestionSessionGradePageModule'    
+    path: 'question/:questionId/user/:userId',
+    loadChildren: getQuestionSessionGradePageModule
   }
 ];
 
