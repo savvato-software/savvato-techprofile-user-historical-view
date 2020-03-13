@@ -1,0 +1,7 @@
+
+To build:
+cd projects/savvato-techprofile-user-historical-view/ && npm version patch && cd - && ng build savvato-techprofile-user-historical-view && cd dist/savvato-techprofile-user-historical-view/ && npm pack && cd - && date
+
+
+
+
