@@ -12,7 +12,7 @@ import { SavvatoTechprofileUserHistoricalViewComponent } from './savvato-techpro
 import { AllUserSessionsListingPageModule } from './src/pages/all-user-sessions-listing/all-user-sessions-listing.module'
 import { QuestionSessionGradePageModule } from './src/pages/question-session-grade/question-session-grade.module'
 
-import { DtimTechprofileModule } from 'dtim-techprofile';
+import { DtimTechprofileModule } from '@savvato-software/dtim-techprofile-component';
 
 @NgModule({
   declarations: [
