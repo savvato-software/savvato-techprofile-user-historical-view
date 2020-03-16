@@ -1,12 +1,12 @@
 import { Component, OnInit, Injectable, Input } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ModelService } from '../lib/src/_services/model.service'
 
 import { AlertService } from '../_services/alert.service';
 import { CareerGoalService } from '../_services/career-goal.service';
-import { FunctionPromiseService } from 'savvato-javascript-services';
+import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services';
 import { QuestionService } from '../_services/question.service';
 import { LineItemAPIService } from '../_services/line-item-api.service';
 import { TechProfileAPIService } from '../_services/tech-profile-api.service';
