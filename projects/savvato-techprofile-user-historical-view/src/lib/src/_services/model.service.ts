@@ -140,7 +140,7 @@ export class ModelService {
 
 	}
 
-	answerQualityFilter = this.GET_ASKED_QUESTION_COUNTS_PER_CELL;
+	answerQualityFilter = "asked"
 	getQuestionCountFuncName(filter) {
 		let funcName = undefined;
 		let self = this;
@@ -156,22 +156,26 @@ export class ModelService {
 		return funcName;
 	}
 
+	getAnswerQualityFilter() {
+		return this.answerQualityFilter;
+	}
+
 	setAnswerQualityFilter(filter) {
-		this._functionPromiseService.reset(this.getQuestionCountFuncName(this.answerQualityFilter));
+		//this._functionPromiseService.reset(this.getQuestionCountFuncName(this.answerQualityFilter));
 		this.answerQualityFilter = filter;
 	}
 
 	getAnsweredQuestionsForCell(id, idx, userId) {
 		let self = this;
 		let data = {'lineItemId': id, 'lineItemLevelIndex': idx, 'userId': userId};
-		let rtn = this._functionPromiseService.waitAndGet(self.GET_CORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, self.GET_CORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, data);
+		let rtn = this._functionPromiseService.waitAndGet(self.GET_CORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL+id+"-"+idx, self.GET_CORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, data);
 		return rtn;
 	}
 
 	getIncorrectlyAnsweredQuestionsForCell(id, idx, userId) {
 		let self = this;
 		let data = {'lineItemId': id, 'lineItemLevelIndex': idx, 'userId': userId};
-		let rtn = this._functionPromiseService.waitAndGet(self.GET_INCORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, self.GET_INCORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, data);
+		let rtn = this._functionPromiseService.waitAndGet(self.GET_INCORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL+id+"-"+idx, self.GET_INCORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, data);
 		return rtn;
 	}
 
@@ -181,7 +185,12 @@ export class ModelService {
 
 		let funcName = this.getQuestionCountFuncName(this.answerQualityFilter);
 
-		let qcpc = this._functionPromiseService.get(funcName, funcName, {"userId": userId});
+		let qcpc = undefined;
+
+		if (this.answerQualityFilter === 'noFilter')
+			qcpc = { };
+		else
+			qcpc = this._functionPromiseService.get(funcName, funcName, {"userId": userId});
 
 		if (qcpc) {
 			let data = {'lineItemId': id, 'lineItemLevelIndex': idx, 'questionCountsPerCell': qcpc};

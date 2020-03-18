@@ -142,12 +142,14 @@ export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
     return self._userTechProfileModelService.getScore(lineItemId);
   }
 
-  onFocus(evt) {
-    this._modelService.setAnswerQualityFilter(evt.target.value);
+  hideAnswerQualityFilters = false;
+  getSelectedAnswerQualityFilter() {
+    let rtn = this._modelService.getAnswerQualityFilter();
+    return rtn;
   }
 
-  onBlur(evt) {
-
+  onAnswerQualityFilterChange(evt) {
+    this._modelService.setAnswerQualityFilter(evt.target.value);
   }
 
   onBackBtnClicked() {

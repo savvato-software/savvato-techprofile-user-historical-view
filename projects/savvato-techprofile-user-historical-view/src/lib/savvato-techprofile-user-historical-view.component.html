@@ -1,22 +1,43 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{getUserName()}} - Tech Profile - PAST View</ion-title>
-  </ion-toolbar>
-	   <ion-list>
-	   		Show Questions Answered: 
-	      <ion-radio-group [(ngModel)]="answerQualityFilter">
+	<ion-toolbar>
+		<ion-title>{{getUserName()}} - Tech Profile - PAST View</ion-title>
+	</ion-toolbar>
 
-	          <ion-label class="aqfLabel">Incorrectly</ion-label>
-	          <ion-radio slot="start" value="incorrect" (ionBlur)="onBlur($event)" (ionFocus)="onFocus($event)"></ion-radio>
+	<!-- TODO: this is candidate for being its own component.. this same code is in careerpath-component -->
+	<ion-item *ngIf="!hideAnswerQualityFilters">
+		Filter By Questions You Answered: 
+		<ion-radio-group [value]="getSelectedAnswerQualityFilter()" (ionChange)="onAnswerQualityFilterChange($event)">
+			<ion-grid>
+				<ion-row>
+					<ion-col>
+						<ion-item lines="none">
+							<ion-label class="aqfLabel">Incorrectly</ion-label>
+							<ion-radio slot="start" value="incorrect" ></ion-radio>
+						</ion-item>
+					</ion-col>
+					<ion-col>
+						<ion-item lines="none">
+							<ion-label class="aqfLabel">Correctly</ion-label>
+							<ion-radio slot="start" value="correct" ></ion-radio>
+						</ion-item>
+					</ion-col>
+					<ion-col>
+						<ion-item lines="none">
+							<ion-label class="aqfLabel">Either</ion-label>
+							<ion-radio slot="start" value="asked" ></ion-radio>
+						</ion-item>
+						</ion-col>
+					<ion-col>
+						<ion-item lines="none">
+							<ion-label class="aqfLabel">None</ion-label>
+							<ion-radio slot="start" value="noFilter" ></ion-radio>
+						</ion-item>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+		</ion-radio-group>
+	</ion-item>
 
-	          <ion-label class="aqfLabel">Correctly</ion-label>
-	          <ion-radio slot="start" value="correct" (ionBlur)="onBlur($event)" (ionFocus)="onFocus($event)"></ion-radio>
-
-	          <ion-label class="aqfLabel">Either</ion-label>
-	          <ion-radio slot="start" value="asked" (ionBlur)="onBlur($event)" (ionFocus)="onFocus($event)"></ion-radio>
-
-	      </ion-radio-group>
-	    </ion-list>		
 	<ion-card>
 		<ion-card-content>
 			<ion-card-title>Chosen Career Goal:</ion-card-title>
