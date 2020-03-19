@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { ApiService } from '../../../_services/api.service'
 import { FunctionPromiseService } from '@savvato-software/savvato-javascript-services'
-//import { environment } from '../../../../_environments/environment'
-
-// import { CORRECT, INCORRECT } from '../../../../_constants/constants';
 
 @Injectable({
 	providedIn: 'root'
@@ -28,52 +25,48 @@ export class ModelService {
 	_init(environment) {
 		let self;
 
-		this._functionPromiseService.reset(this.GET_CORRECT_QUESTION_COUNTS_PER_CELL);
 		this._functionPromiseService.initFunc(this.GET_CORRECT_QUESTION_COUNTS_PER_CELL, (data) => {
 			return new Promise((resolve, reject) => {
 				let url = environment.apiUrl + "/api/techprofile/user/" + data['userId'] + "/correctlyAnsweredQuestionCountsPerCell";
 				this._apiService.get(url)
-				.subscribe((qcpc) => {
-					resolve(qcpc);
+				.subscribe((qcpc: []) => {
+					resolve(qcpc.sort((a,b) => { if (a[0] > b[0]) return 1; else if (a[0] < b[0]) return -1; else return 0;}));
 				}, (err) => {
 					reject(err);
 				})
 			})
 		});
 
-		this._functionPromiseService.reset(this.GET_INCORRECT_QUESTION_COUNTS_PER_CELL);
 		this._functionPromiseService.initFunc(this.GET_INCORRECT_QUESTION_COUNTS_PER_CELL, (data) => {
 			return new Promise((resolve, reject) => {
 				let url = environment.apiUrl + "/api/techprofile/user/" + data['userId'] + "/incorrectlyAnsweredQuestionCountsPerCell";
 				this._apiService.get(url)
-				.subscribe((qcpc) => {
-					resolve(qcpc);
+				.subscribe((qcpc: []) => {
+					resolve(qcpc.sort((a,b) => { if (a[0] > b[0]) return 1; else if (a[0] < b[0]) return -1; else return 0;}));
 				}, (err) => {
 					reject(err);
 				})
 			})
 		});
 
-		this._functionPromiseService.reset(this.GET_ASKED_QUESTION_COUNTS_PER_CELL);
 		this._functionPromiseService.initFunc(this.GET_ASKED_QUESTION_COUNTS_PER_CELL, (data) => {
 			return new Promise((resolve, reject) => {
 				let url = environment.apiUrl + "/api/techprofile/user/" + data['userId'] + "/askedQuestionCountsPerCell";
 				this._apiService.get(url)
-				.subscribe((qcpc) => {
-					resolve(qcpc);
+				.subscribe((qcpc: []) => {
+					resolve(qcpc.sort((a,b) => { if (a[0] > b[0]) return 1; else if (a[0] < b[0]) return -1; else return 0;}));
 				}, (err) => {
 					reject(err);
 				})
 			})
 		});
 
-		this._functionPromiseService.reset(this.GET_TOTAL_QUESTION_COUNTS_PER_CELL);
 		this._functionPromiseService.initFunc(this.GET_TOTAL_QUESTION_COUNTS_PER_CELL, (data) => {
 			return new Promise((resolve, reject) => {
 				let url = environment.apiUrl + "/api/techprofile/questionCountsPerCell";
 				this._apiService.get(url)
-				.subscribe((qcpc) => {
-					resolve(qcpc);
+				.subscribe((qcpc: []) => {
+					resolve(qcpc.sort((a,b) => { if (a[0] > b[0]) return 1; else if (a[0] < b[0]) return -1; else return 0;}));
 				}, (err) => {
 					reject(err);
 				})
@@ -112,7 +105,6 @@ export class ModelService {
 			})
 		})
 
-		this._functionPromiseService.reset(this.GET_CORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL);
 		this._functionPromiseService.initFunc(this.GET_CORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, (data) => {
 			return new Promise((resolve, reject) => {
 				let url = environment.apiUrl + "/api/question/" + data['lineItemId'] + "/" + data['lineItemLevelIndex'] + "/user/" + data['userId'] + "/correctlyAnsweredQuestions";
@@ -125,7 +117,6 @@ export class ModelService {
 			})
 		});
 
-		this._functionPromiseService.reset(this.GET_INCORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL);
 		this._functionPromiseService.initFunc(this.GET_INCORRECTLY_ANSWERED_QUESTIONS_OF_A_GIVEN_CELL, (data) => {
 			return new Promise((resolve, reject) => {
 				let url = environment.apiUrl + "/api/question/" + data['lineItemId'] + "/" + data['lineItemLevelIndex'] + "/user/" + data['userId'] + "/incorrectlyAnsweredQuestions";
@@ -161,7 +152,6 @@ export class ModelService {
 	}
 
 	setAnswerQualityFilter(filter) {
-		//this._functionPromiseService.reset(this.getQuestionCountFuncName(this.answerQualityFilter));
 		this.answerQualityFilter = filter;
 	}
 
@@ -194,7 +184,7 @@ export class ModelService {
 
 		if (qcpc) {
 			let data = {'lineItemId': id, 'lineItemLevelIndex': idx, 'questionCountsPerCell': qcpc};
-			rtn = this._functionPromiseService.get(self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL+"-correct"+id+"-"+idx+"/"+qcpc.length, self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL, data)
+			rtn = this._functionPromiseService.get(self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL+"-filtered"+id+"-"+idx+"/"+qcpc.length, self.GET_QUESTION_COUNT_OF_A_GIVEN_CELL, data)
 		}
 		
 		return rtn;
