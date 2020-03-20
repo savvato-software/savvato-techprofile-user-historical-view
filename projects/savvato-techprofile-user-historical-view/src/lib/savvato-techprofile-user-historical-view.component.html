@@ -1,8 +1,3 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-title>{{getUserName()}} - Tech Profile - Historical View</ion-title>
-	</ion-toolbar>
-
 	<!-- TODO: this is candidate for being its own component.. this same code is in careerpath-component -->
 	<ion-item *ngIf="!hideAnswerQualityFilters">
 		Filter By Questions You Answered: 
@@ -37,13 +32,6 @@
 				</ion-grid>
 		</ion-radio-group>
 	</ion-item>
-	<ion-card>
-		<ion-card-content>
-			<ion-card-title>Chosen Career Goal:</ion-card-title>
-			<span> {{ getChosenCareerGoalName() }} </span>
-		</ion-card-content>
-	</ion-card>
-</ion-header>
 
 <ion-content>
 	<ion-card>
@@ -51,7 +39,4 @@
 			<lib-dtim-techprofile-component [ctrl]="getDtimTechprofileComponentController()"></lib-dtim-techprofile-component>
 		</ion-card-content>
 	</ion-card>
-</ion-content>
-<ion-content class="footerButtonRow">
-	<ion-button class="" (click)="onBackBtnClicked()">Go Back</ion-button>
 </ion-content>

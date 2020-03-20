@@ -38,6 +38,8 @@ export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
 
     lxdescriptionClickHandler = undefined;
 
+    isTitleBarVisible_ = false;
+
     funcKey = "past-utp-controller";
 
   constructor(private _location: Location,
@@ -117,7 +119,13 @@ export class SavvatoTechprofileUserHistoricalViewComponent implements OnInit {
 
         self.route_prefix = ctrl.getRoutePrefix && ctrl.getRoutePrefix();
         self._valueService.setValue(self.route_prefix);
+
+        self.isTitleBarVisible_ = ctrl.getIsTitleBarVisible && ctrl.getIsTitleBarVisible();
       })
+  }
+
+  isTitleBarVisible() {
+    return this.isTitleBarVisible_;
   }
 
   onLxDescriptionClick(lineItemId, idx) {
